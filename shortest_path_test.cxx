@@ -39,15 +39,19 @@ void add_edges(graph *g, int n)
 		int dst = rand() % (src+1);
 		double w = d_rand(1.0, 100.0);
 		g->add_edge(src, dst, w);
+		g->add_edge(dst, src, w);
 	}
 	*/
-
-	for(int i = 0; i <= r_edges; ++i)
+	for(int i = 0; i < r_edges; ++i)
 	{
-		for(int j = 0; j <= r_edges; ++j)
+		for(int j = i+1; j <= r_edges; ++j)
 		{
-			if(i != j)
-				g->add_edge(i, j, d_rand(1.0, 100.0));
+			if(i != j && i < j)
+			{
+				double cost = d_rand(1.0, 100.0);
+				g->add_edge(i, j, cost);
+				g->add_edge(j, i, cost);
+			}
 		}
 	}
 }
